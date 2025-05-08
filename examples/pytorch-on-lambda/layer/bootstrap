@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Log the script execution
+echo "Bootstrap script started" >&2
+
+# Setup PATH and PYTHONPATH
+export PATH=$PATH:$LAMBDA_TASK_ROOT/bin PYTHONPATH=/opt/python:$LAMBDA_RUNTIME_DIR
+
+# Define the preload library path
+export LD_PRELOAD="/opt/python/lambda_snaploader/libpreload.cpython-312-x86_64-linux-gnu.so"
+
+# Execute the original command
+echo "Executing command: $@" >&2
+exec "$@"
