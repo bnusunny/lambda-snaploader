@@ -10,7 +10,7 @@ build-LambdaSnaploaderLayer:
 	@mkdir -p "$(ARTIFACTS_DIR)/python"
 	
 	# Install the lambda-snaploader wheel
-	@pip install wheels/lambda_snaploader-*.whl -t "$(ARTIFACTS_DIR)/python/"
+	@pip install lambda-snaploader -t "$(ARTIFACTS_DIR)/python/"
 	
 	# Copy the bootstrap script
 	@mkdir -p "$(ARTIFACTS_DIR)/bin"

@@ -7,7 +7,6 @@ import boto3
 from typing import Dict, Any
 from lambda_snaploader import load_libraries_from_s3
 
-
 # Configure logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -53,20 +52,12 @@ def load_pytorch():
         setup_result = load_libraries_from_s3(
             bucket=bucket_name,
             key=key,
-            target_dir=target_dir,
-            # Filter to load only .so files into memory files
-            file_filter=lambda name: name.endswith('.so') or '.so.' in name
+            target_dir=target_dir
         )
         
         if not setup_result:
             logger.error("Failed to setup PyTorch library from S3")
             return False
-        
-        # # Add the target directory to LD_LIBRARY_PATH
-        # ld_library_path = os.environ.get('LD_LIBRARY_PATH', '')
-        # if target_dir not in ld_library_path:
-        #     os.environ['LD_LIBRARY_PATH'] = f"{target_dir}:{ld_library_path}"
-        #     logger.info(f"Updated LD_LIBRARY_PATH: {os.environ['LD_LIBRARY_PATH']}")
         
         logger.info("Library setup complete, importing PyTorch")
         
